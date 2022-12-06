@@ -7,23 +7,23 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+#  build:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: set up JDK 11
+#      uses: actions/setup-java@v3
+#      with:
+#        java-version: '11'
+#        distribution: 'temurin'
+#        cache: gradle
+#
+#    - name: Grant execute permission for gradlew
+#      run: chmod +x gradlew
+#    - name: Build with Gradle
+#      run: ./gradlew build
 
   test:
     name: Run Unit Tests
@@ -36,6 +36,26 @@ jobs:
           java-version: 11
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
+
+  build:
+    name: Upload apk to App Tester
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: build release
+        run: bash ./gradlew assembleDebug
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        with:
+          appId: '1:374789067883:android:16bc04d5499881ddbb0d2e'
+          token: '1//0gs6L1lMPm6X2CgYIARAAGBASNwF-L9IrQRTMW9Vf2_g4U1335u1qWfoY_EGwXH2EilQd8JM79fGmaDPJroAy4AVmz6mCI5B1B48'
+          groups: testers
+          file: app/build/outputs/apk/debug/app-debug.apk
 
   apk:
     name: Generate APK
