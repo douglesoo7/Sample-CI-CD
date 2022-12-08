@@ -21,7 +21,7 @@ jobs:
         run: bash ./gradlew test --stacktrace
 
   apk:
-#    needs: [test]
+    needs: [test]
     name: Generate APK
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +39,7 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   build:
-#    needs: [apk]
+    needs: [apk]
     name: Upload apk to App Tester
     runs-on: ubuntu-latest
 
@@ -54,8 +54,8 @@ jobs:
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
         with:
-          appId: '1:374789067883:android:16bc04d5499881ddbb0d2e'
-          token: '1//0gs6L1lMPm6X2CgYIARAAGBASNwF-L9IrQRTMW9Vf2_g4U1335u1qWfoY_EGwXH2EilQd8JM79fGmaDPJroAy4AVmz6mCI5B1B48'
+          appId: ${{secrets.APP_ID}}
+          token: ${{secrets.CI_TOKEN}}
           groups: self-testers
           file: app/build/outputs/apk/debug/app-debug.apk
 
