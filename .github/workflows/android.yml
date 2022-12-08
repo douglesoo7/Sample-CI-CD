@@ -56,6 +56,6 @@ jobs:
         with:
           appId: '1:374789067883:android:16bc04d5499881ddbb0d2e'
           token: '1//0gs6L1lMPm6X2CgYIARAAGBASNwF-L9IrQRTMW9Vf2_g4U1335u1qWfoY_EGwXH2EilQd8JM79fGmaDPJroAy4AVmz6mCI5B1B48'
-          groups: testers
+          groups: self-testers
           file: app/build/outputs/apk/debug/app-debug.apk
 
