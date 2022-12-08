@@ -21,7 +21,7 @@ jobs:
         run: bash ./gradlew test --stacktrace
 
   apk:
-    needs: [test]
+#    needs: [test]
     name: Generate APK
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +39,7 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   build:
-    needs: [apk]
+#    needs: [apk]
     name: Upload apk to App Tester
     runs-on: ubuntu-latest
 
